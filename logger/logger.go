@@ -38,14 +38,19 @@ func InitLogger(serviceName, loggingLevel string) {
 	logger.SetOutput(new(logWriter))
 }
 
-// Debug - creates debug log message
+// Debug - create debug log message
 func Debug(message string) {
 	if logLevel >= 1 {
 		logger.Printf("DEBUG %s", message)
 	}
 }
 
-// Error - creates error log message
+// Info - create log message
+func Info(message string) {
+	logger.Printf("INFO %s", message)
+}
+
+// Error - create error log message
 func Error(message string) {
 	logger.Printf("ERROR %s", message)
 }

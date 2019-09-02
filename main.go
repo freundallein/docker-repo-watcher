@@ -28,5 +28,6 @@ func main() {
 		settings.Period,
 		jobs,
 	)
+	logger.Info("Start service")
 	service.Run()
 }
