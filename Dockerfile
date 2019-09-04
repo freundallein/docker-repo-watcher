@@ -23,6 +23,7 @@ ENV LOG_LEVEL=ERROR
 ENV APP_PREFIX=""
 ENV PERIOD=60
 ENV IMAGE_AMOUNT=5
+ENV AUTOUPDATE=1
 
 
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo

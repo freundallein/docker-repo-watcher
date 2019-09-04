@@ -9,7 +9,7 @@ import (
 // InitJobs - make slice of all available jobs
 func InitJobs(cli *client.Client, settings *settings.Settings) []*service.Job {
 	crontab := settings.Crontab
-	return []*service.Job{
+	jobs := []*service.Job{
 		&service.Job{
 			Name:    "Networks prune",
 			Crontab: crontab,
@@ -35,4 +35,11 @@ func InitJobs(cli *client.Client, settings *settings.Settings) []*service.Job {
 			Routine: func() { ImageSelection(cli, settings) },
 		},
 	}
+	if settings.AutoUpdate {
+		jobs = append(jobs, &service.Job{
+			Name:    "Auto update",
+			Routine: func() { AutoUpdate(cli) },
+		})
+	}
+	return jobs
 }

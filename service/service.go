@@ -15,6 +15,10 @@ type Job struct {
 	Routine func()
 }
 
+func (j *Job) String() string {
+	return fmt.Sprintf("%s - %s", j.Name, j.Crontab)
+}
+
 // Service - watch local docker repository
 type Service struct {
 	period int
@@ -52,12 +56,13 @@ func (serv *Service) Run() {
 
 	for _, job := range serv.crontabJobs {
 		err := c.AddFunc(job.Crontab, job.Routine)
+		logger.Debug(fmt.Sprintf("Scheduled %s crontab job", job.Name))
 		if err != nil {
 			logger.Error(fmt.Sprintf("%s", err))
 		}
 	}
 	c.Start()
-	logger.Debug(fmt.Sprintf("Scheduled crontab jobs"))
+
 	defer c.Stop()
 	for {
 		select {

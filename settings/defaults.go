@@ -1,5 +1,8 @@
 package settings
 
+//AppImageName - application docker image name
+const AppImageName = "freundallein/drwatcher"
+
 // DefaultRegistryIP - docker registry IP
 const DefaultRegistryIP = "192.168.20.126"
 
@@ -17,3 +20,6 @@ const DefaultPeriod = 60
 
 // DefaultImageAmount - image-clean-job amount to store
 const DefaultImageAmount = 5
+
+// DefaultAutoUpdate - allow drwatcher to autoupdate itself
+const DefaultAutoUpdate = true
