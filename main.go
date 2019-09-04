@@ -16,6 +16,7 @@ var dockerAPIVersion = os.Getenv("DOCKER_API_VERSION")
 func main() {
 	settings := settings.NewSettings()
 	logger.InitLogger("D-REPO-WATCHER", settings.LogLevel)
+	logger.Debug(settings.String())
 	logger.Debug("Create docker client")
 	cli, err := client.NewClientWithOpts(client.WithVersion(dockerAPIVersion))
 	if err != nil {

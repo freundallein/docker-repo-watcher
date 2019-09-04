@@ -19,10 +19,14 @@ type image struct {
 	tag string
 }
 
+func (i *image) String() string {
+	return fmt.Sprintf("%s - %s", i.tag, i.ID)
+}
+
 // ImageSelection - clean stale images
 func ImageSelection(cli *client.Client, settings *settings.Settings) {
 	matchString := fmt.Sprintf("%s:%s/%s*", settings.RegistryIP, settings.RegistryPort, settings.AppPrefix)
-	logger.Debug("Run image selection")
+	logger.Info("Run image selection")
 	images, err := fetchImages(cli, matchString)
 	if err != nil {
 		logger.Error(fmt.Sprintf("%s", err))
@@ -71,18 +75,19 @@ func cleanImages(cli *client.Client, imagesByName map[string][]*image, amountToS
 	for name, images := range imagesByName {
 		if len(images) > amountToStore {
 			toDelete := chooseToDelete(images, amountToStore)
+			logger.Debug(fmt.Sprintf("Deleting %d %s images", len(toDelete), name))
 			logger.Debug("IDs for deletion:")
 			for i := range toDelete {
 				logger.Debug(fmt.Sprintf("%s", toDelete[i]))
 			}
-			logger.Debug(fmt.Sprintf("Overall %s %d images", name, len(toDelete)))
+
 			deleted, err := deleteImages(cli, toDelete)
 			if err != nil {
 				return err
 			}
-			logger.Debug(fmt.Sprintf("%d images deleted", deleted))
+			logger.Info(fmt.Sprintf("%d images deleted", deleted))
 		} else {
-			logger.Debug(fmt.Sprintf("%s images are OK", name))
+			logger.Info(fmt.Sprintf("%s images are OK", name))
 		}
 	}
 	return nil

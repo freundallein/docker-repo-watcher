@@ -62,7 +62,6 @@ func (serv *Service) Run() {
 	for {
 		select {
 		case <-time.After(time.Duration(period) * time.Second):
-			fmt.Println("CUSTOM RUN", period)
 			for _, j := range serv.customJobs {
 				go j.Routine()
 			}

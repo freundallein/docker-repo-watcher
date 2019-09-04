@@ -1,6 +1,7 @@
 package settings
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 )
@@ -14,6 +15,11 @@ type Settings struct {
 	LogLevel string
 	Period,
 	ImageAmount int
+}
+
+func (s *Settings) String() string {
+	return fmt.Sprintf("\nREGISTRY_IP %s\nREGISTRY_PORT %s\nAPP_REFIX '%s'\nCRONTAB '%s'\nLOG_LEVEL %s\nPERIOD %d\nIMAGE_AMOUNT %d",
+		s.RegistryIP, s.RegistryPort, s.AppPrefix, s.Crontab, s.LogLevel, s.Period, s.ImageAmount)
 }
 
 // NewSettings - create new settings
