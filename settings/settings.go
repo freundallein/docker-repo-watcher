@@ -18,8 +18,22 @@ type Settings struct {
 	AutoUpdate bool
 }
 
+// ToEnvString - form list of env variables
+func (s *Settings) ToEnvString() []string {
+	return []string{
+		fmt.Sprintf("REGISTRY_IP=%s", s.RegistryIP),
+		fmt.Sprintf("REGISTRY_PORT=%s", s.RegistryPort),
+		fmt.Sprintf("APP_REFIX=%s", s.AppPrefix),
+		fmt.Sprintf("CRONTAB=%s", s.Crontab),
+		fmt.Sprintf("LOG_LEVEL=%s", s.LogLevel),
+		fmt.Sprintf("PERIOD=%d", s.Period),
+		fmt.Sprintf("IMAGE_AMOUNT=%d", s.ImageAmount),
+		fmt.Sprintf("AUTOUPDATE=%t", s.AutoUpdate),
+	}
+}
+
 func (s *Settings) String() string {
-	return fmt.Sprintf("\nREGISTRY_IP %s\nREGISTRY_PORT %s\nAPP_REFIX '%s'\nCRONTAB '%s'\nLOG_LEVEL %s\nPERIOD %d\nIMAGE_AMOUNT %d\nAUTOUPDATE %b",
+	return fmt.Sprintf("\nREGISTRY_IP=%s\nREGISTRY_PORT=%s\nAPP_REFIX='%s'\nCRONTAB='%s'\nLOG_LEVEL=%s\nPERIOD=%d\nIMAGE_AMOUNT=%d\nAUTOUPDATE=%t",
 		s.RegistryIP, s.RegistryPort, s.AppPrefix, s.Crontab, s.LogLevel, s.Period, s.ImageAmount, s.AutoUpdate)
 }
 

@@ -38,7 +38,7 @@ func InitJobs(cli *client.Client, settings *settings.Settings) []*service.Job {
 	if settings.AutoUpdate {
 		jobs = append(jobs, &service.Job{
 			Name:    "Auto update",
-			Routine: func() { AutoUpdate(cli) },
+			Routine: func() { AutoUpdate(cli, settings) },
 		})
 	}
 	return jobs
