@@ -52,11 +52,12 @@ func (serv *Service) Run() {
 	logger.Debug("Start service")
 	period := serv.period
 	logger.Debug(fmt.Sprintf("Period - %s", time.Duration(period)*time.Second))
+
 	c := cron.New()
 
 	for _, job := range serv.crontabJobs {
 		err := c.AddFunc(job.Crontab, job.Routine)
-		logger.Debug(fmt.Sprintf("Scheduled %s crontab job", job.Name))
+		logger.Debug(fmt.Sprintf("Scheduled %s crontab job on %s", job.Name, job.Crontab))
 		if err != nil {
 			logger.Error(fmt.Sprintf("%s", err))
 		}
