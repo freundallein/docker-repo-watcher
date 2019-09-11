@@ -52,6 +52,7 @@ func AutoUpdate(cli *client.Client, config *settings.Settings) {
 		return
 	}
 	logger.Info("Re-deploy application.")
+	ctx = context.WithValue(ctx, contextKey("imageID"), newImageID)
 	err = redeploy(ctx)
 	if err != nil {
 		logger.Error(fmt.Sprintf("%s", err))
@@ -100,7 +101,9 @@ func redeploy(ctx context.Context) error {
 	cli := ctx.Value(contextKey("cli")).(*client.Client)
 	containerID := ctx.Value(contextKey("contID")).(string)
 	image := ctx.Value(contextKey("reference")).(string)
+	imageID := ctx.Value(contextKey("imageID")).(string)
 	settings := ctx.Value(contextKey("settings")).(*settings.Settings)
+	newName := fmt.Sprintf("drwatcher-%s", imageID[:12])
 	newContainer, err := cli.ContainerCreate(
 		ctx,
 		&container.Config{
@@ -109,7 +112,7 @@ func redeploy(ctx context.Context) error {
 		},
 		&container.HostConfig{
 			Binds: []string{"/var/run/docker.sock:/var/run/docker.sock"},
-		}, nil, "")
+		}, nil, newName)
 	if err != nil {
 		logger.Error(fmt.Sprintf("%s", err))
 	}
