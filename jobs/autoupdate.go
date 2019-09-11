@@ -103,7 +103,7 @@ func redeploy(ctx context.Context) error {
 	image := ctx.Value(contextKey("reference")).(string)
 	imageID := ctx.Value(contextKey("imageID")).(string)
 	settings := ctx.Value(contextKey("settings")).(*settings.Settings)
-	newName := fmt.Sprintf("drwatcher-%s", imageID[:12])
+	newName := fmt.Sprintf("drwatcher-%s", imageID[7:19])
 	newContainer, err := cli.ContainerCreate(
 		ctx,
 		&container.Config{
