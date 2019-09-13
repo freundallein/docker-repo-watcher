@@ -10,5 +10,6 @@ build:
 dockerbuild:
 	 docker build -t freundallein/drwatcher:latest .
 distribute:
+	 echo "$$DOCKER_PASSWORD" | docker login -u "$$DOCKER_USERNAME" --password-stdin
 	 docker build -t freundallein/drwatcher:latest .
 	 docker push freundallein/drwatcher:latest

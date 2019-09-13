@@ -9,7 +9,7 @@ Docker local repository watcher
 ## Installation
 
 * ```docker pull freundallein/drwatcher:latest```
-* ```docker run -d -v /var/run/docker.sock:/var/run/docker.sock freundallein/drwatcher```
+* ```docker run -d -v /var/run/docker.sock:/var/run/docker.sock freundallein/drwatcher:latest```
 
 ## Work
 Starts docker prune crontb jobs with CRONTAB period.  
