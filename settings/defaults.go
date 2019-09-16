@@ -23,3 +23,6 @@ const DefaultImageAmount = 5
 
 // DefaultAutoUpdate - allow drwatcher to autoupdate itself
 const DefaultAutoUpdate = true
+
+// DefautlCleanRegistry - allow drwatcher to clean registry
+const DefautlCleanRegistry = false

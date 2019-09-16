@@ -24,7 +24,7 @@ func (i *image) String() string {
 }
 
 // ImageSelection - clean stale images
-func ImageSelection(cli *client.Client, settings *settings.Settings) {
+func imageSelection(cli *client.Client, settings *settings.Settings) {
 	matchString := fmt.Sprintf("%s:%s/%s*", settings.RegistryIP, settings.RegistryPort, settings.AppPrefix)
 	logger.Info("Run image selection")
 	images, err := fetchImages(cli, matchString)

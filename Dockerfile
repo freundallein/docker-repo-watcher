@@ -22,6 +22,7 @@ ENV APP_PREFIX=""
 ENV PERIOD=60
 ENV IMAGE_AMOUNT=5
 ENV AUTOUPDATE=1
+ENV REGISTRY_PATH="/var/lib/registry"
 
 COPY --from=builder /app/bin/drwatcher /bin/drwatcher
 

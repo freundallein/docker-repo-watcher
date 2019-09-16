@@ -32,13 +32,20 @@ func InitJobs(cli *client.Client, settings *settings.Settings) []*service.Job {
 		},
 		&service.Job{
 			Name:    "Image selection",
-			Routine: func() { ImageSelection(cli, settings) },
+			Routine: func() { imageSelection(cli, settings) },
 		},
+	}
+	if settings.CleanRegistry {
+		jobs = append(jobs, &service.Job{
+			Name: "Clean registry",
+			// Crontab: crontab,
+			Routine: func() { cleanRegistry(cli, settings) },
+		})
 	}
 	if settings.AutoUpdate {
 		jobs = append(jobs, &service.Job{
 			Name:    "Auto update",
-			Routine: func() { AutoUpdate(cli, settings) },
+			Routine: func() { autoUpdate(cli, settings) },
 		})
 	}
 	return jobs

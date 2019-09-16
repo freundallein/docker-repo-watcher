@@ -44,3 +44,6 @@ After one iteration with IMAGE_AMOUNT=5 your repositroy will be looked like this
 * ```PERIOD=60``` (Period of custom image cleaning in seconds)
 * ```IMAGE_AMOUNT=5``` (amount of custom images to stay)
 * ```AUTOUPDATE=1``` (if you want autoupdate drwatcher)
+* ```CLEAN_REGISTRY=1``` (if you want to clean your registry)
+* ```REGISTRY_USER=""```
+* ```REGISTRY_PASSWORD=""```

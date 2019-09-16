@@ -16,8 +16,8 @@ import (
 
 type contextKey string
 
-// AutoUpdate - pull latest docker image and restart container
-func AutoUpdate(cli *client.Client, config *settings.Settings) {
+// autoUpdate - pull latest docker image and restart container
+func autoUpdate(cli *client.Client, config *settings.Settings) {
 	reference := fmt.Sprintf("%s:latest", settings.AppImageName)
 	logger.Info("Auto update check")
 	ctx := context.WithValue(context.Background(), contextKey("cli"), cli)
@@ -104,6 +104,14 @@ func redeploy(ctx context.Context) error {
 	imageID := ctx.Value(contextKey("imageID")).(string)
 	settings := ctx.Value(contextKey("settings")).(*settings.Settings)
 	newName := fmt.Sprintf("drwatcher-%s", imageID[7:19])
+	bindings := []string{}
+	oldContainer, err := cli.ContainerInspect(ctx, containerID)
+	if err != nil {
+		logger.Error(fmt.Sprintf("%s", err))
+	}
+	for _, mnt := range oldContainer.Mounts {
+		bindings = append(bindings, fmt.Sprintf("%s:%s", mnt.Source, mnt.Destination))
+	}
 	newContainer, err := cli.ContainerCreate(
 		ctx,
 		&container.Config{
@@ -111,7 +119,7 @@ func redeploy(ctx context.Context) error {
 			Env:   settings.ToEnvString(),
 		},
 		&container.HostConfig{
-			Binds: []string{"/var/run/docker.sock:/var/run/docker.sock"},
+			Binds: bindings,
 		}, nil, newName)
 	if err != nil {
 		logger.Error(fmt.Sprintf("%s", err))

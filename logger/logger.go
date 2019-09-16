@@ -32,7 +32,7 @@ func InitLogger(serviceName, loggingLevel string) {
 		logLevel = 0
 	}
 
-	format := fmt.Sprintf("[%s Service]: ", serviceName)
+	format := fmt.Sprintf("[%s]: ", serviceName)
 	logger = log.New(os.Stdout, format, log.Lshortfile)
 	logger.SetFlags(0)
 	logger.SetOutput(new(logWriter))

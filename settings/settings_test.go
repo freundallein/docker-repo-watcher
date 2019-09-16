@@ -29,7 +29,7 @@ func TestNewSettings(t *testing.T) {
 
 func TestString(t *testing.T) {
 	config := NewSettings()
-	expected := "\nREGISTRY_IP=192.168.20.126\nREGISTRY_PORT=5000\nAPP_REFIX=''\nCRONTAB='0 0 0 * * *'\nLOG_LEVEL=ERROR\nPERIOD=60\nIMAGE_AMOUNT=5\nAUTOUPDATE=true"
+	expected := "\nREGISTRY_IP=192.168.20.126\nREGISTRY_PORT=5000\nAPP_PREFIX=''\nCRONTAB='0 0 0 * * *'\nLOG_LEVEL=ERROR\nPERIOD=60\nIMAGE_AMOUNT=5\nAUTOUPDATE=true"
 	observed := config.String()
 	if observed != expected {
 		t.Error("Expected", expected, "got", observed)
@@ -40,12 +40,15 @@ func TestToEnvString(t *testing.T) {
 	expected := []string{
 		"REGISTRY_IP=192.168.20.126",
 		"REGISTRY_PORT=5000",
-		"APP_REFIX=",
+		"APP_PREFIX=",
 		"CRONTAB=0 0 0 * * *",
 		"LOG_LEVEL=ERROR",
 		"PERIOD=60",
 		"IMAGE_AMOUNT=5",
-		"AUTOUPDATE=true"}
+		"AUTOUPDATE=true",
+		"CLEAN_REGISTRY=false",
+		"REGISTRY_PATH=/var/lib/registry",
+	}
 	observed := config.ToEnvString()
 	for i, value := range observed {
 		if value != expected[i] {

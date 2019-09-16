@@ -48,7 +48,7 @@ func TestInitLoggerWithoutName(t *testing.T) {
 	InitLogger("", "ERROR")
 	writer := new(fakeLogWriter)
 	logger.SetOutput(writer)
-	expected := "[UNKNOWN Service]: INFO TEST RECORD\n"
+	expected := "[UNKNOWN]: INFO TEST RECORD\n"
 	Info("TEST RECORD")
 	if writer.output != expected {
 		t.Error("Expected", expected, "got", writer.output)
@@ -59,7 +59,7 @@ func TestDebug(t *testing.T) {
 	InitLogger("TEST", "DEBUG")
 	writer := new(fakeLogWriter)
 	logger.SetOutput(writer)
-	expected := "[TEST Service]: DEBUG TEST RECORD\n"
+	expected := "[TEST]: DEBUG TEST RECORD\n"
 	Debug("TEST RECORD")
 	if writer.output != expected {
 		t.Error("Expected", expected, "got", writer.output)
@@ -80,7 +80,7 @@ func TestInfo(t *testing.T) {
 	InitLogger("TEST", "DEBUG")
 	writer := new(fakeLogWriter)
 	logger.SetOutput(writer)
-	expected := "[TEST Service]: INFO TEST RECORD\n"
+	expected := "[TEST]: INFO TEST RECORD\n"
 	Info("TEST RECORD")
 	if writer.output != expected {
 		t.Error("Expected", expected, "got", writer.output)
@@ -91,7 +91,7 @@ func TestError(t *testing.T) {
 	InitLogger("TEST", "DEBUG")
 	writer := new(fakeLogWriter)
 	logger.SetOutput(writer)
-	expected := "[TEST Service]: ERROR TEST RECORD\n"
+	expected := "[TEST]: ERROR TEST RECORD\n"
 	Error("TEST RECORD")
 	if writer.output != expected {
 		t.Error("Expected", expected, "got", writer.output)
