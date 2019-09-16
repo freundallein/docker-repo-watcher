@@ -165,12 +165,12 @@ func garbageCollect(cli *client.Client) {
 			if err != nil {
 				logger.Error(fmt.Sprintf("%s", err))
 			}
-			r, err := cli.ContainerExecAttach(ctx, execID.ID, types.ExecStartCheck{})
+			_, err = cli.ContainerExecAttach(ctx, execID.ID, types.ExecStartCheck{})
 			if err != nil {
 				logger.Error(fmt.Sprintf("%s", err))
 			}
-			content, _, _ := r.Reader.ReadLine()
-			logger.Info(string(content))
+			// content, _, _ := r.Reader.ReadLine()
+			// logger.Info(string(content))
 		}
 	}
 }
